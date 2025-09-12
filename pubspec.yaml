@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 name: mobileprograming
+=======
+name: flutter_application_2
+>>>>>>> c56b7831927a2f2779e2548cb3035c700177d2d9
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.

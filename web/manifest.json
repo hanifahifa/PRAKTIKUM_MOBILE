@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
     "name": "mobileprograming",
     "short_name": "mobileprograming",
+=======
+    "name": "flutter_application_2",
+    "short_name": "flutter_application_2",
+>>>>>>> c56b7831927a2f2779e2548cb3035c700177d2d9
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
