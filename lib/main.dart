@@ -17,20 +17,12 @@ class MyApp extends StatelessWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  KotakJempol(color: Colors.blue),
-                  SizedBox(width: 10),
-                  KotakJempol(color: Colors.red),
-                ],
+                children: [KotakFavorit(), SizedBox(width: 10), KotakFavorit()],
               ),
               SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  KotakJempol(color: Colors.green),
-                  SizedBox(width: 10),
-                  KotakJempol(color: Colors.orange),
-                ],
+                children: [KotakFavorit(), SizedBox(width: 10), KotakFavorit()],
               ),
             ],
           ),
@@ -40,22 +32,22 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class KotakJempol extends StatelessWidget {
-  final Color color;
-
-  KotakJempol({required this.color});
-
+class KotakFavorit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 100,
       height: 100,
       decoration: BoxDecoration(
-        color: color,
+        color: Colors.red, // semua box merah
         border: Border.all(color: Colors.black, width: 2),
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Icon(Icons.thumb_up, color: Colors.white, size: 40),
+      child: Icon(
+        Icons.favorite,
+        color: Colors.white, // love putih
+        size: 40,
+      ),
     );
   }
 }
