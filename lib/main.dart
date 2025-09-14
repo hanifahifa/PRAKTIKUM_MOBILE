@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Center(
           child: Text("Pemutar Musik", style: TextStyle(fontSize: 20)),
+   
         ),
         bottomNavigationBar: buildControlBar(), // Panggil method ControlBar
       ),

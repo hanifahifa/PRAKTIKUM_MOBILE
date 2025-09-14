@@ -1,10 +1,26 @@
 # Project-level configuration.
 cmake_minimum_required(VERSION 3.14)
+<<<<<<< HEAD
 project(praktimum_mobile LANGUAGES CXX)
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
 set(BINARY_NAME "praktimum_mobile")
+=======
+<<<<<<< HEAD
+project(mobileprograming LANGUAGES CXX)
+
+# The name of the executable created for the application. Change this to change
+# the on-disk name of your application.
+set(BINARY_NAME "mobileprograming")
+=======
+project(flutter_application_2 LANGUAGES CXX)
+
+# The name of the executable created for the application. Change this to change
+# the on-disk name of your application.
+set(BINARY_NAME "flutter_application_2")
+>>>>>>> c56b7831927a2f2779e2548cb3035c700177d2d9
+>>>>>>> 3acb10e49775bc735e5fac558e1b1ebe82587ea6
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.

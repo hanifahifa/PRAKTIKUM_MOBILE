@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 # praktimum_mobile
+=======
+<<<<<<< HEAD
+# mobileprograming
+=======
+# flutter_application_2
+>>>>>>> c56b7831927a2f2779e2548cb3035c700177d2d9
+>>>>>>> 3acb10e49775bc735e5fac558e1b1ebe82587ea6
 
 A new Flutter project.
 

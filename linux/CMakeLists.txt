@@ -4,10 +4,24 @@ project(runner LANGUAGES CXX)
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
+<<<<<<< HEAD
 set(BINARY_NAME "praktimum_mobile")
 # The unique GTK application identifier for this application. See:
 # https://wiki.gnome.org/HowDoI/ChooseApplicationID
 set(APPLICATION_ID "com.example.praktimum_mobile")
+=======
+<<<<<<< HEAD
+set(BINARY_NAME "mobileprograming")
+# The unique GTK application identifier for this application. See:
+# https://wiki.gnome.org/HowDoI/ChooseApplicationID
+set(APPLICATION_ID "com.example.mobileprograming")
+=======
+set(BINARY_NAME "flutter_application_2")
+# The unique GTK application identifier for this application. See:
+# https://wiki.gnome.org/HowDoI/ChooseApplicationID
+set(APPLICATION_ID "com.example.flutter_application_2")
+>>>>>>> c56b7831927a2f2779e2548cb3035c700177d2d9
+>>>>>>> 3acb10e49775bc735e5fac558e1b1ebe82587ea6
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.
