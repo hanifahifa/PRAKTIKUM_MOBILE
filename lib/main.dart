@@ -39,14 +39,28 @@ class KotakFavorit extends StatelessWidget {
       width: 100,
       height: 100,
       decoration: BoxDecoration(
-        color: Colors.red, // semua box merah
+        color: Colors.red, // box merah
         border: Border.all(color: Colors.black, width: 2),
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Icon(
-        Icons.favorite,
-        color: Colors.white, // love putih
-        size: 40,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.favorite,
+            color: Colors.white, // love putih
+            size: 40,
+          ),
+          SizedBox(height: 5),
+          Text(
+            "Love",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
     );
   }
