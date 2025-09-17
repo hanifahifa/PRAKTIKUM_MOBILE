@@ -1,54 +1,65 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Demo Card',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Card Demo'),
-          backgroundColor: Colors.amber,
-        ),
-        body: Center(
-          child: Card(
-            margin: const EdgeInsets.all(8),
+      theme: ThemeData.dark(), // tampilannya gelap elegan
+      home: LaguPage(),
+    );
+  }
+}
+
+class LaguPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Sedang memutar"),
+        centerTitle: true, // judul appbar di tengah
+      ),
+      body: Center(
+        child: Card(
+          elevation: 4, // sesuai ketentuan
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12), // border radius 12
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(12), // padding di dalam card
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: [
-                const ListTile(
-                  leading: Icon(Icons.location_pin, color: Colors.red),
-                  title: Text('Taman Nasional Bromo Tengger Semeru'),
-                  subtitle: Text('Jawa Timur, Indonesia'),
+              children: <Widget>[
+                const Icon(
+                  Icons.album, // ikon lingkaran lagu
+                  size: 100,
+                  color: Colors.blueGrey,
                 ),
-                Container(
-                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      OutlinedButton(
-                        onPressed: () {},
-                        style: OutlinedButton.styleFrom(
-                          side: const BorderSide(color: Colors.blue),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "Di sini ada judul lagu",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        child: const Icon(Icons.map),
-                      ),
-                      const SizedBox(width: 10),
-                      OutlinedButton(
-                        onPressed: () {},
-                        style: OutlinedButton.styleFrom(
-                          side: const BorderSide(color: Colors.blue),
+                        Text(
+                          "Di sini ada nama artis",
+                          style: TextStyle(fontSize: 14),
                         ),
-                        child: const Icon(Icons.phone),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                    const Icon(Icons.favorite_border, color: Colors.redAccent),
+                  ],
                 ),
               ],
             ),
