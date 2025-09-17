@@ -31,6 +31,66 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+Container _tombolBaca() {
+  return Container(
+    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+    decoration: BoxDecoration(
+      color: Colors.orange,
+      borderRadius: BorderRadius.circular(15),
+    ),
+    child: const Text('Baca Info', style: TextStyle(color: Colors.white)),
+  );
+}
+
+Container _listItem(String url, String judul, String genre, String rilis) {
+  return Container(
+    padding: const EdgeInsets.all(15),
+    margin: const EdgeInsets.only(bottom: 10),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(15),
+    ),
+    child: Row(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(5),
+          child: Image.network(url, width: 70, height: 70, fit: BoxFit.cover),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                judul,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(genre, style: const TextStyle(color: Colors.grey)),
+                      const SizedBox(height: 2),
+                      Text(rilis, style: const TextStyle(color: Colors.grey)),
+                    ],
+                  ),
+                  _tombolBaca(),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 class _MyHomePageState extends State<MyHomePage> {
   // List untuk menyimpan data berita
   List dataBerita = [];
@@ -41,23 +101,25 @@ class _MyHomePageState extends State<MyHomePage> {
     _ambilData();
   }
 
-  // Method request data API
+  // Method untuk request data ke server dengan API FreeToGame
   Future _ambilData() async {
     try {
       final response = await http.get(
-        Uri.parse('https://jakpost.vercel.app/api/category/business/tech'),
+        Uri.parse('https://www.freetogame.com/api/games'),
       );
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
+
         setState(() {
-          dataBerita = data['posts'];
+          // Simpan hanya 10 data pertama dari API ke List
+          dataBerita = data.take(20).toList();
         });
       } else {
-        throw Exception('Gagal load data');
+        throw Exception('Gagal load data dari FreeToGame API');
       }
     } catch (e) {
-      print(e);
+      print('Error: $e');
     }
   }
 
@@ -68,42 +130,11 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ListView.builder(
         itemCount: dataBerita.length,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: Theme.of(context).colorScheme.inversePrimary,
-                  width: 1,
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: ListTile(
-                  title: Text(
-                    dataBerita[index]['title'] ?? "Tidak ada judul",
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  subtitle: Text(
-                    dataBerita[index]['published_at'] ?? "Tidak ada data",
-                    maxLines: 1,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  leading: Image.network(
-                    dataBerita[index]['image'] ??
-                        'http://cdn.pixabay.com/photo/2018/03/17/20/51/white-buildings-3235135__340.jpg',
-                    fit: BoxFit.cover,
-                    width: 100,
-                  ),
-                ),
-              ),
-            ),
+          return _listItem(
+            dataBerita[index]['thumbnail'] ?? 'https://via.placeholder.com/150',
+            dataBerita[index]['title'] ?? 'Tidak ada judul',
+            dataBerita[index]['genre'] ?? 'Tidak ada genre',
+            dataBerita[index]['release_date'] ?? 'Tidak ada tanggal',
           );
         },
       ),
