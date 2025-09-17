@@ -24,10 +24,61 @@ class MyApp extends StatelessWidget {
           scrollDirection: Axis.vertical,
           physics: const NeverScrollableScrollPhysics(),
           children: [
-            // Tile akan ditambahkan
+            tile(
+              Colors.blueAccent.shade400,
+              'assets/icon/boy.png',
+              'Kehadiran',
+            ),
+            tile(
+              Colors.greenAccent.shade400,
+              'assets/icon/timetable.png',
+              'Jadwal Kuliah',
+            ),
+            tile(
+              Colors.yellowAccent.shade400,
+              'assets/icon/homeschooling.png',
+              'Tugas',
+            ),
+            tile(
+              Colors.redAccent.shade400,
+              'assets/icon/checklist.png',
+              'Pengumuman',
+            ),
+            tile(
+              Colors.purpleAccent.shade400,
+              'assets/icon/warning.png',
+              'Nilai',
+            ),
+            tile(
+              Colors.tealAccent.shade400,
+              'assets/icon/pencil.png',
+              'Catatan',
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+ClipRRect tile(Color warnaKotak, String gambar, String judul) {
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(10),
+    child: Container(
+      color: warnaKotak,
+      child: GridTile(
+        footer: SizedBox(
+          height: 45,
+          child: GridTileBar(
+            backgroundColor: Colors.black38,
+            title: Text(
+              judul,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+        child: Image.asset(gambar, scale: 4),
+      ),
+    ),
+  );
 }
