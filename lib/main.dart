@@ -4,18 +4,33 @@ void main() {
   runApp(const MyApp());
 }
 
+Container kotakUji(Color warna) {
+  return Container(width: 75, height: 75, color: warna);
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Contoh SizedBox',
       home: Scaffold(
-        appBar: AppBar(title: const Text("Program Pertamaku")),
-        body: const Center(
-          child: Text(
-            "Hanifah Utami Sunaryo Putri", // ganti dengan namamu
-            style: TextStyle(fontSize: 24),
+        appBar: AppBar(
+          backgroundColor: Colors.amber,
+          title: const Text('Contoh SizedBox'),
+        ),
+        body: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              kotakUji(Colors.amber),
+              const Spacer(flex: 1),
+              kotakUji(Colors.green),
+              const Spacer(flex: 2),
+              kotakUji(Colors.blue),
+            ],
           ),
         ),
       ),
