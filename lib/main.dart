@@ -8,51 +8,56 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Demo GridView',
+      title: 'Demo ListView',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Demo GridView'),
+          title: const Text('Demo ListView'),
           backgroundColor: Colors.amber,
         ),
-        body: GridView(
-          padding: const EdgeInsets.all(10),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-          ),
-          scrollDirection: Axis.vertical,
-          physics: const NeverScrollableScrollPhysics(),
+        body: ListView(
+          padding: const EdgeInsets.all(8),
           children: [
-            tile(
+            listTile(
               Colors.blueAccent.shade400,
-              'assets/icon/boy.png',
-              'Kehadiran',
-            ),
-            tile(
               Colors.greenAccent.shade400,
+              'Kehadiran',
+              'Presensi kehadiran kuliah',
+              'assets/icon/boy.png',
+            ),
+            listTile(
+              Colors.greenAccent.shade400,
+              Colors.blueAccent.shade400,
+              'Jadwal',
+              'Jadwal perkuliahan',
               'assets/icon/timetable.png',
-              'Jadwal Kuliah',
             ),
-            tile(
+            listTile(
               Colors.yellowAccent.shade400,
-              'assets/icon/homeschooling.png',
-              'Tugas',
-            ),
-            tile(
               Colors.redAccent.shade400,
-              'assets/icon/checklist.png',
+              'Tugas',
+              'Tugas perkuliahan di luar kelas',
+              'assets/icon/homeschooling.png',
+            ),
+            listTile(
+              Colors.redAccent.shade400,
+              Colors.amberAccent.shade400,
               'Pengumuman',
+              'Informasi terkait perkuliahan',
+              'assets/icon/checklist.png',
             ),
-            tile(
+            listTile(
               Colors.purpleAccent.shade400,
-              'assets/icon/warning.png',
-              'Nilai',
-            ),
-            tile(
               Colors.tealAccent.shade400,
-              'assets/icon/pencil.png',
+              'Nilai',
+              'Nilai ujian dan tugas',
+              'assets/icon/warning.png',
+            ),
+            listTile(
+              Colors.tealAccent.shade400,
+              Colors.purpleAccent.shade400,
               'Catatan',
+              'Pengingat kegiatan perkuliahan',
+              'assets/icon/pencil.png',
             ),
           ],
         ),
@@ -61,24 +66,28 @@ class MyApp extends StatelessWidget {
   }
 }
 
-ClipRRect tile(Color warnaKotak, String gambar, String judul) {
-  return ClipRRect(
-    borderRadius: BorderRadius.circular(10),
-    child: Container(
-      color: warnaKotak,
-      child: GridTile(
-        footer: SizedBox(
-          height: 45,
-          child: GridTileBar(
-            backgroundColor: Colors.black38,
-            title: Text(
-              judul,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ),
-        child: Image.asset(gambar, scale: 4),
+Container listTile(
+  Color warna,
+  Color warnaAvatar,
+  String judul,
+  String subjudul,
+  String gambar,
+) {
+  return Container(
+    padding: const EdgeInsets.symmetric(vertical: 5),
+    child: ListTile(
+      tileColor: warna,
+      title: Text(
+        judul,
+        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
+      subtitle: Text(subjudul, style: const TextStyle(fontSize: 16)),
+      leading: CircleAvatar(
+        radius: 30,
+        backgroundColor: warnaAvatar,
+        child: Image.asset(gambar, width: 35, height: 35),
+      ),
+      trailing: const Icon(Icons.star, color: Colors.orangeAccent),
     ),
   );
 }
