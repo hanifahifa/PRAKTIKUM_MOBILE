@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'tujuan.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,25 +12,19 @@ class Home extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "Ini adalah halaman Home",
+              "Ini Halaman Home",
               style: TextStyle(fontSize: 20),
             ),
             const SizedBox(height: 15),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
-                side: const BorderSide(width: 1.0, color: Colors.blue),
+                foregroundColor: Colors.white,
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Tujuan()),
-                );
+                Navigator.pushNamed(context, '/tujuan');
               },
-              child: const Text(
-                "Ke Halaman Tujuan",
-                style: TextStyle(color: Colors.white),
-              ),
+              child: const Text("Ke Halaman Tujuan"),
             ),
           ],
         ),
