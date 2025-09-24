@@ -1,8 +1,8 @@
 class ScreenArguments {
+  final String cover;
   final String title;
-  final String subtitle;
   final String description;
+  final String shortDesc;
 
-  ScreenArguments(this.title, this.subtitle, this.description);
+  ScreenArguments(this.cover, this.title, this.description, this.shortDesc);
 }
-  
