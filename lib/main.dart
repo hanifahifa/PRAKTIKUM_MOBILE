@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'LikeButtonPage.dart';
+import 'CounterPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,55 +15,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const LikeButtonPage(),
+      home: const CounterPage(),
     );
   }
 }
 
-class LikeButtonPage extends StatefulWidget {
-  const LikeButtonPage({super.key});
 
-  @override
-  State<LikeButtonPage> createState() => _LikeButtonPageState();
-}
 
-class _LikeButtonPageState extends State<LikeButtonPage> {
-  bool _isLiked = false; // state untuk status like
-  int _likeCount = 10; // jumlah awal like
 
-  // Method untuk toggle Like
-  void _toggleLike() {
-    setState(() {
-      if (_isLiked) {
-        _likeCount--;
-        _isLiked = false;
-      } else {
-        _likeCount++;
-        _isLiked = true;
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Like Button')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconButton(
-              icon: Icon(
-                _isLiked ? Icons.favorite : Icons.favorite_border,
-                color: _isLiked ? Colors.red : Colors.grey,
-                size: 48,
-              ),
-              onPressed: _toggleLike,
-            ),
-            Text('$_likeCount likes', style: const TextStyle(fontSize: 24)),
-          ],
-        ),
-      ),
-    );
-  }
-}
