@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,76 +9,56 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Stateful Widget Demo',
-      home: CounterPage(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const LikeButtonPage(),
     );
   }
 }
 
-class CounterPage extends StatefulWidget {
-  const CounterPage({super.key});
+class LikeButtonPage extends StatefulWidget {
+  const LikeButtonPage({super.key});
 
   @override
-  _CounterPageState createState() => _CounterPageState();
+  State<LikeButtonPage> createState() => _LikeButtonPageState();
 }
 
-class _CounterPageState extends State<CounterPage> {
-  int _counter = 0; // state
+class _LikeButtonPageState extends State<LikeButtonPage> {
+  bool _isLiked = false; // state untuk status like
+  int _likeCount = 10; // jumlah awal like
 
-  void _incrementCounter() {
+  // Method untuk toggle Like
+  void _toggleLike() {
     setState(() {
-      _counter++;
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
+      if (_isLiked) {
+        _likeCount--;
+        _isLiked = false;
+      } else {
+        _likeCount++;
+        _isLiked = true;
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Counter App')),
+      appBar: AppBar(title: const Text('Like Button')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Klik tombol tambah atau kurang:',
-              style: TextStyle(fontSize: 24),
+            IconButton(
+              icon: Icon(
+                _isLiked ? Icons.favorite : Icons.favorite_border,
+                color: _isLiked ? Colors.red : Colors.grey,
+                size: 48,
+              ),
+              onPressed: _toggleLike,
             ),
-            Text('$_counter', style: const TextStyle(fontSize: 40)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue[700],
-                    minimumSize: const Size(100, 60),
-                  ),
-                  onPressed: _decrementCounter,
-                  child: const Text(
-                    'Kurang',
-                    style: TextStyle(color: Colors.white, fontSize: 24),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue[700],
-                    minimumSize: const Size(100, 60),
-                  ),
-                  onPressed: _incrementCounter,
-                  child: const Text(
-                    'Tambah',
-                    style: TextStyle(color: Colors.white, fontSize: 24),
-                  ),
-                ),
-              ],
-            ),
+            Text('$_likeCount likes', style: const TextStyle(fontSize: 24)),
           ],
         ),
       ),
