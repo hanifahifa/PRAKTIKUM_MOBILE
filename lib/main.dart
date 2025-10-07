@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
-import 'tujuan.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_application_2/view/home.dart';
+import 'package:flutter_application_2/view/detail.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,15 +9,27 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
+
     return MaterialApp(
-      debugShowCheckedModeBanner: false, 
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Game Store',
       initialRoute: '/',
       routes: {
-      '/': (context) => const Home(),
-      '/tujuan': (context) => const TujuanPage(),
-    },
-      );
+        '/': (context) => const Home(),
+        '/detail': (context) {
+          final gameID = ModalRoute.of(context)!.settings.arguments as int;
+          return Detail(gameTerpilih: gameID);
+        },
+      },
+    );
   }
 }
