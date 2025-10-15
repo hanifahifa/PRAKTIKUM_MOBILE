@@ -1,141 +1,70 @@
-import 'package:flutter_application_2/model/game.dart';
-import 'package:flutter_application_2/viewmodel/fetchgame.dart';
 import 'package:flutter/material.dart';
+import '../viewmodel/tasbih_controller.dart';
+import 'package:get/get.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class Home extends StatelessWidget {
+  Home({super.key});
 
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  late Future<List<Game>> gameList;
-
-  @override
-  void initState() {
-    super.initState();
-    loadGames();
-  }
-
-  Future<List<Game>> loadGames() async {
-    gameList = fetchGames();
-    return gameList;
-  }
+  final TasbihController controller = Get.put(TasbihController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amberAccent.shade400,
+      backgroundColor: const Color.fromARGB(255, 119, 210, 145),
       body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          child: Column(
-            children: [
-              _searchBar(), // Memanggil fungsi Search Bar
-              const SizedBox(
-                height: 10, // Memberi jarak antara Search Bar dan ListView
-              ),
-              FutureBuilder<List<Game>>(
-  future: fetchGames(), // Memanggil fungsi fetchGames dari viewmodel
-  builder: (context, snapshot) {
-    if (snapshot.connectionState == ConnectionState.waiting) {
-      return const Expanded(
         child: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
-    } else if (snapshot.hasError) {
-      return Text('Error: ${snapshot.error}');
-    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-      return const Text('Tidak ada data game.');
-    } else {
-      final games = snapshot.data!.take(25).toList();
-      return Expanded(
-        child: ListView.builder(
-          itemCount: games.length,
-          itemBuilder: (context, index) {
-            final game = games[index];
-            return GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  '/detail', // Route berlabel untuk halaman detail
-                  arguments: game.id, // Mengirim id game ke halaman detail
-                );
-              },
-              child: _listItem(
-                game.thumbnail,
-                game.title,
-                game.genre,
-              ),
-            );
-          },
-        ),
-      );
-    }
-  },
-)
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Counter
+              Obx(() => Text(
+                    '${controller.counter.value.round()}',
+                    style: const TextStyle(fontSize: 250),
+                  )),
 
+              // Progress bar
+              Obx(() => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    child: LinearProgressIndicator(
+                      value: controller.progress.value / 100,
+                      backgroundColor: Colors.white54,
+                      color: Colors.amberAccent.shade400,
+                      minHeight: 15,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  )),
+
+              const SizedBox(height: 75),
+
+              // Tombol counter (fingerprint)
+              ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(50)),
+                child: InkWell(
+                  onTap: controller.incrementCounter,
+                  child: Container(
+                    decoration: const BoxDecoration(color: Colors.white),
+                    padding: const EdgeInsets.all(30),
+                    child: const Icon(
+                      Icons.fingerprint,
+                      size: 100,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
       ),
-    );
-  }
-}
 
-TextField _searchBar() {
-  return TextField(
-    cursorColor: Colors.blue,
-    decoration: InputDecoration(
-      fillColor: Colors.blue.shade50,
-      filled: true,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-        borderSide: const BorderSide(width: 0, style: BorderStyle.none),
-      ),
-      contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-      prefixIcon: const Icon(
-        Icons.search_outlined,
-        color: Colors.blue,
-        size: 30,
-      ),
-      hintText: 'Cari game',
-      hintStyle: TextStyle(fontSize: 14, color: Colors.grey.withOpacity(0.7)),
-    ),
-  );
-}
-
-Card _listItem(
-  String urlCover,
-  String judul,
-  String genre,
-) {
-  return Card(
-    clipBehavior: Clip.antiAlias,
-    elevation: 3,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    child: ListTile(
-      tileColor: Colors.blue.shade50,
-      leading: SizedBox(
-        width: 75,
-        height: 75,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Image.network(
-            urlCover,
-            scale: 3,
-            fit: BoxFit.cover,
-          ),
+      // Tombol reset
+      floatingActionButton: FloatingActionButton(
+        onPressed: controller.resetCounter,
+        backgroundColor: Colors.white,
+        child: const Icon(
+          Icons.refresh_outlined,
+          color: Colors.black,
         ),
       ),
-      
-      title: Text(judul),
-      subtitle: Text(genre),
-      trailing: const Icon(Icons.more_vert),
-      isThreeLine: false,
-      titleAlignment: ListTileTitleAlignment.center,
-    ),
-  );
+    );
+  }
 }
