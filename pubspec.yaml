@@ -30,9 +30,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  get: ^4.6.5
-  simple_circular_progress_bar: ^1.0.2
-
+  http: ^1.1.0
+  # Paket untuk format tanggal
+  intl: ^0.18.1
+  # Paket untuk kustomisasi font
+  google_fonts: ^6.1.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
